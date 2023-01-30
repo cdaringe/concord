@@ -72,4 +72,9 @@ public class ContextVariables implements Variables {
     public Map<String, Object> toMap() {
         return VMUtils.getCombinedLocals(ctx);
     }
+
+  @Override
+  public Variables copy() {
+    return this;
+  }
 }

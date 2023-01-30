@@ -24,11 +24,11 @@ import com.walmartlabs.concord.runtime.v2.sdk.Variables;
 
 import java.util.Map;
 
-public class ScriptVariables implements Variables {
+public class ScriptVariables<M> implements Variables<M> {
 
-    private final Variables delegate;
+    private final Variables<M> delegate;
 
-    public ScriptVariables(Variables delegate) {
+    public ScriptVariables(Variables<M> delegate) {
         this.delegate = delegate;
     }
 
@@ -58,4 +58,9 @@ public class ScriptVariables implements Variables {
     public Map<String, Object> toMap() {
         return delegate.toMap();
     }
+
+  @Override
+  public ScriptVariables<M> copy() {
+    return new ScriptVariables(this.delegate.copy());
+  }
 }

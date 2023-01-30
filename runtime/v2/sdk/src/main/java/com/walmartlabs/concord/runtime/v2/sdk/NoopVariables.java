@@ -46,4 +46,9 @@ public class NoopVariables implements Variables {
     public Map<String, Object> toMap() {
         return Collections.emptyMap();
     }
+
+  @Override
+  public Variables copy() {
+    return null;
+  }
 }

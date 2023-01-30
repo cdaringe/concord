@@ -9,9 +9,9 @@ package com.walmartlabs.concord.runtime.v2.sdk;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,8 +27,11 @@ public class MapBackedVariables implements Variables {
 
     private final Map<String, Object> delegate;
 
-    public MapBackedVariables(Map<String, Object> delegate) {
-        this.delegate = delegate != null ? Collections.unmodifiableMap(delegate) : Collections.emptyMap();
+    private Map<String, Object> createDelegate(Map<String,Object> sourceDelegate) {
+      return sourceDelegate != null ? Collections.unmodifiableMap(sourceDelegate) : Collections.emptyMap();
+    }
+    public MapBackedVariables(Map<String, Object> sourceDelegate) {
+        this.delegate = createDelegate(sourceDelegate);
     }
 
     @Override
@@ -50,4 +53,9 @@ public class MapBackedVariables implements Variables {
     public Map<String, Object> toMap() {
         return delegate;
     }
+
+  @Override
+  public MapBackedVariables copy() {
+      return new MapBackedVariables(this.delegate);
+  }
 }
